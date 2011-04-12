@@ -1,6 +1,7 @@
 package
 {
 	import org.flixel.*;
+	import flash.media.SoundChannel;
 	
 	public class PlayState extends FlxState
 	{	
@@ -17,8 +18,8 @@ package
 		private var scoreText: FlxText;
 		
 		private var sequence: Sequence;
-		private var time: Number;
-		private var frame: int;
+		/*private var time: Number;
+		private var frame: int;*/
 		
 		[Embed(source = "data/stomp.mp3")] 	
 		public var Stomp:Class;
@@ -91,17 +92,14 @@ package
 			
 			sequence = new Sequence();
 			
-			this.time = 0.;
-			this.frame = 0;
+			//this.time = 0.;
+			//this.frame = 0;
 			
 			super.create();
 		}
 		
-		private function processFrame(): void
-		{
-			if (this.frame == 0) {
-				FlxG.play(SoundBank.SOUNDS[0]);
-			}
+		/*private function processFrame(): void
+		{	
 			if ((this.frame % 30) == 0) { // dumb way for making 120 BPM
 				var soundPos: Array = this.sequence.nextBeat(3);
 				for each (var s: SoundPos in soundPos) {
@@ -117,19 +115,38 @@ package
 				}
 			}
 			this.frame++;
-		}
+		}*/
 		
 		override public function update():void
 		{
 			FlxU.collide(level, runners);
 			FlxU.overlap(runners, enemys, overlapRunnerEnemy);
 			
-			this.time += FlxG.elapsed;
+			var music: FlxSound = SoundBank.SOUNDS[0];
+			if (!music.playing) {
+				sequence.rewind();
+				music.play(50);
+			}
+			
+			var soundPos: Array = this.sequence.beats(music.position, 330);
+			for each (var s: SoundPos in soundPos) {
+				var y: int;
+				if (s.y == 1) {
+					y = 35;
+				} else if (s.y == 2) {
+					y = 107;
+				} else if (s.y == 3) {
+					y = 179;
+				}
+				enemys.add(new Enemy(340, y, s.sound));
+			}
+			
+			/*this.time += FlxG.elapsed;
 			var targetFrame: int = int(this.time * 60);
 			var framesBetween: int = targetFrame - this.frame;
 			for (var i:int = 0; i<framesBetween; i++) {
 				processFrame();
-			}
+			}*/
 			
 			/*spawnTimer -= FlxG.elapsed;
  

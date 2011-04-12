@@ -8,3 +8,4 @@ SWF = Game.swf
 
 $(SWF) : $(SRC)
 	$(MXMLC) $(OPTIONS) -sp $(FLIXEL) -o $(SWF) -- $(MAIN)
+

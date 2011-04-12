@@ -4,13 +4,14 @@ package
  
     public class Enemy extends FlxSprite
     {
-		private var sound: Class;
+		public static var SPEED: Number = 160;
+		private var sound: FlxSound;
 
-        public function Enemy(x: Number, y: Number, sound: Class):void
+        public function Enemy(x: Number, y: Number, sound: FlxSound):void
         {
             super(x, y);
             this.sound = sound;
-            velocity.x = -220;
+            velocity.x = -SPEED;
 			createGraphic(20, 5, 0xffaa1111);
         }
  
@@ -21,7 +22,8 @@ package
         
         public function playSound(): void
         {
-			FlxG.play(this.sound, 1, false);
+			this.sound.stop();
+			this.sound.play(50);
 		}
     }
 }

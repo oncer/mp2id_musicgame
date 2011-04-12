@@ -150,7 +150,7 @@ package org.flixel
 		/**
 		 * Call this function to play the sound.
 		 */
-		public function play():void
+		public function play(offset:int = 0):void
 		{
 			if(_position < 0)
 				return;
@@ -159,7 +159,7 @@ package org.flixel
 				if(_position == 0)
 				{
 					if(_channel == null)
-						_channel = _sound.play(0,9999,_transform);
+						_channel = _sound.play(offset,9999,_transform);
 					if(_channel == null)
 						active = false;
 				}
@@ -178,7 +178,7 @@ package org.flixel
 				{
 					if(_channel == null)
 					{
-						_channel = _sound.play(0,0,_transform);
+						_channel = _sound.play(offset,0,_transform);
 						if(_channel == null)
 							active = false;
 						else
@@ -277,6 +277,14 @@ package org.flixel
 			else if(_volume > 1)
 				_volume = 1;
 			updateTransform();
+		}
+		
+		public function get position():Number
+		{
+			if (_channel == null) {
+				return 0;
+			}
+			return _channel.position;
 		}
 		
 		/**

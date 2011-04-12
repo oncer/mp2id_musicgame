@@ -40,18 +40,42 @@ package {
 			currentSoundIdx = 0;
 		}
 		
-		public function nextBeat(skew: int): Array
+		/*public function nextBeat(skew: int): Array
 		{
 			var a: Array = new Array;
 			while (currentSoundIdx < soundPos.length && (currentPos) >= soundPos[currentSoundIdx].x) {
-				FlxG.play(soundPos[currentSoundIdx].sound, 1, false);
+				soundPos[currentSoundIdx].sound.play();
 				currentSoundIdx++;
 			}
-			/*while (currentSoundIdx < soundPos.length && (currentPos + skew) >= soundPos[currentSoundIdx].x) {
+			//while (currentSoundIdx < soundPos.length && (currentPos + skew) >= soundPos[currentSoundIdx].x) {
+			//	a.push(soundPos[currentSoundIdx]);
+			//	currentSoundIdx++;
+			//}
+			currentPos++;
+			return a;
+		}*/
+		/*public function beats(position: Number): void
+		{
+			var beatPos: Number = position / 500.;
+			while (currentSoundIdx < soundPos.length && (beatPos) >= soundPos[currentSoundIdx].x) {
+				soundPos[currentSoundIdx].sound.play();
+				currentSoundIdx++;
+			}
+		}*/
+		public function rewind(): void
+		{
+			currentSoundIdx = 0;
+		}
+		
+		public function beats(position: Number, distance: int): Array
+		{
+			var a: Array = new Array;
+			var distanceTime: Number = distance / Enemy.SPEED * 1000.;
+			var beatPos: Number = (position + distanceTime) / 500.;
+			while (currentSoundIdx < soundPos.length && (beatPos) >= soundPos[currentSoundIdx].x) {
 				a.push(soundPos[currentSoundIdx]);
 				currentSoundIdx++;
-			}*/
-			currentPos++;
+			}
 			return a;
 		}
 	}
