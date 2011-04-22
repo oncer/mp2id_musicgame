@@ -4,7 +4,10 @@ package
     
     public class PlayState extends FlxState
     {
+		
 		protected var level:Level;
+		protected var player1:Player1;
+		protected var players:FlxGroup;
 		
         public function PlayState():void
         {
@@ -15,11 +18,20 @@ package
 			level = new Level();
 			add(level);
 			
+			players = new FlxGroup();
+			player1 = new Player1(0,0);
+			player1.play("run");
+			players.add(player1);
+			
+			add(players);
+			
 			super.create();
         }
 
         override public function update():void
         {
+			FlxU.collide(level, players);
+			
 			super.update();
         }
     }
