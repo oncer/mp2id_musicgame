@@ -3,9 +3,13 @@ package
 	import org.flixel.*;
 	public class Player extends FlxSprite
 	{
-		public function Player(X:Number, Y:Number):void
+		protected var base_y:int = FlxG.height;
+		
+		public function Player(X:int, BASE_Y:int):void
 		{
-			super(X,Y);
+			this.base_y = BASE_Y;
+			this.x = X;
+			this.y = this.base_y - this.height;
 		}
 		
 		override public function update():void
@@ -14,6 +18,10 @@ package
 			acceleration.y = 600;
 			
 			super.update();
+			
+			if (this.y + this.height > this.base_y) {
+				this.y = this.base_y - this.height;
+			}
 		}
 	}
 }

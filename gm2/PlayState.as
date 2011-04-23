@@ -7,6 +7,8 @@ package
 		
 		protected var level:Level;
 		protected var player1:Player1;
+		protected var player2:Player2;
+		protected var player3:Player3;
 		protected var players:FlxGroup;
 		
         public function PlayState():void
@@ -19,9 +21,12 @@ package
 			add(level);
 			
 			players = new FlxGroup();
-			player1 = new Player1(0,0);
-			player1.play("run");
+			player1 = new Player1();
+			player2 = new Player2();
+			player3 = new Player3();
 			players.add(player1);
+			players.add(player2);
+			players.add(player3);
 			
 			add(players);
 			
@@ -29,9 +34,7 @@ package
         }
 
         override public function update():void
-        {
-			FlxU.collide(level, players);
-			
+        {	
 			super.update();
         }
     }
