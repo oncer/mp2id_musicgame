@@ -4,8 +4,10 @@ package
     
     public class Level extends FlxGroup
     {
+		[Embed(source = "data/background.png")] public var bmpBackground:Class;
 		[Embed(source = "data/tiles.png")] public var bmpTiles:Class;
 		
+		public var background:FlxSprite;
         public var tm1:FlxTilemap;
         public var tm2:FlxTilemap;
         
@@ -14,6 +16,10 @@ package
         public function Level():void
         {
             super();
+            
+            background = new FlxSprite(0, 0, bmpBackground);
+            add(background);
+            
 			var a:Array = new Array();
 			var widthInTiles:int = FlxG.width / 16;
 			var heightInTiles:int = FlxG.width / 16;
