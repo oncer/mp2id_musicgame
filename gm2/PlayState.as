@@ -6,9 +6,9 @@ package
     {
 		
 		protected var level:Level;
-		protected var player1:Player1;
-		protected var player2:Player2;
-		protected var player3:Player3;
+		public var player1:Player1;
+		public var player2:Player2;
+		public var player3:Player3;
 		protected var players:FlxGroup;
 		
         public function PlayState():void
@@ -17,7 +17,7 @@ package
         
         override public function create():void
         {
-			level = new Level();
+			level = new Level(this);
 			add(level);
 			
 			players = new FlxGroup();

@@ -11,11 +11,19 @@ package
         public var tm1:FlxTilemap;
         public var tm2:FlxTilemap;
         
+        public var xpos:Number;
         protected var scroll:Number;
+        protected const SCROLL_SPEED:Number = 100; // pixels per second
+        
+        protected var obstacles:Array;
+        protected var obstaclesGroup:FlxGroup;
+        public var playState:PlayState;
 
-        public function Level():void
+        public function Level(PLAYSTATE:PlayState):void
         {
             super();
+            
+            this.playState = PLAYSTATE;
             
             background = new FlxSprite(0, 0, bmpBackground);
             add(background);
@@ -40,12 +48,40 @@ package
 			add(tm1);
 			add(tm2);
 			
-			this.scroll = 0;
+			obstacles = new Array();
+			obstacles.push(new BumperObstacle (this, 300, 200));
+			obstacles.push(new BumperObstacle (this, 600, 200));
+			
+			obstaclesGroup = new FlxGroup();
+			for each (var o:Obstacle in obstacles) {
+				obstaclesGroup.add(o);
+			}
+			add(obstaclesGroup);
+			
+			this.xpos = this.scroll = 0;
         }
+        
+        protected function selectBumperObstacle():void
+        {
+			for each (var o:Obstacle in obstacles) {
+				if (o is BumperObstacle) {
+					var bumper:BumperObstacle = o as BumperObstacle;
+					if (bumper.state == BumperObstacle.STATE_LOADED) {
+						bumper.select();
+						break;
+					} else if (bumper.state == BumperObstacle.STATE_SELECTED) {
+						break;
+					}
+				}
+			}
+		}
 
         override public function update():void
         {
-			this.scroll += 2;
+			var scrollAmount:Number = FlxG.elapsed * SCROLL_SPEED;
+			
+			this.xpos += scrollAmount;
+			this.scroll += scrollAmount;
 			
 			if (this.scroll > FlxG.width) {
 				this.scroll -= FlxG.width;
@@ -56,6 +92,8 @@ package
 			
             tm1.x = -this.scroll;
             tm2.x = tm1.x + FlxG.width;
+            
+            selectBumperObstacle();
             
             super.update();
         }

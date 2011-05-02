@@ -5,9 +5,9 @@ package
 	{
 		[Embed(source = "data/player1.png")] public var bmpPlayer1:Class;
 		
-		protected const STATE_RUNNING:int = 1;
-		protected const STATE_DUCKING:int = 2;
-		protected const STATE_JUMPING:int = 3;
+		protected static const STATE_RUNNING:int = 1;
+		protected static const STATE_DUCKING:int = 2;
+		protected static const STATE_JUMPING:int = 3;
 		
 		protected var state:int;
 		
@@ -27,6 +27,12 @@ package
 		{
 			super.update();
 			var state_changed:Boolean = false;
+			if (!state_changed && state == STATE_JUMPING) { // check jumping sequence
+				if (this.finished) { // sequence finished, switch back to running state
+					this.state = STATE_RUNNING;
+					state_changed = true;
+				}
+			}
 			if (FlxG.keys.pressed(Config.KEY_P1)) {
 				if (state == STATE_RUNNING) { // key pressed in running state, switch to duck mode
 					state = STATE_DUCKING;
@@ -35,12 +41,6 @@ package
 			} else {
 				if (state == STATE_DUCKING) { // key released in duck mode, initiate jumping sequence
 					state = STATE_JUMPING;
-					state_changed = true;
-				}
-			}
-			if (!state_changed && state == STATE_JUMPING) { // check jumping sequence
-				if (this.finished) { // sequence finished, switch back to running state
-					this.state = STATE_RUNNING;
 					state_changed = true;
 				}
 			}

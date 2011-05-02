@@ -17,11 +17,12 @@ package
 			maxVelocity.y = 100;
 			acceleration.y = 600;
 			
-			super.update();
-			
-			if (this.y + this.height > this.base_y) {
-				this.y = this.base_y - this.height;
+			if (this.y + this.height >= this.base_y) {
+				velocity.y = 0;
+				this.y = base_y - this.height;
 			}
+			
+			super.update();
 		}
 	}
 }
