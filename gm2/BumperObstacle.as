@@ -35,7 +35,11 @@ package {
 			if (this.state == STATE_SELECTED) {
 				this.play("fired");
 				this.state = STATE_FIRED;
-				trace("fired");
+				var player2:Player2 = this.level.playState.player2;
+				if (playerOverlap(player2)) {
+					player2.bump();
+				}
+				this.y -= 2;
 			}
 		}
 		

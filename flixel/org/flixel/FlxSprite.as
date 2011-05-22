@@ -623,6 +623,32 @@ package org.flixel
 				}
 			}
 		}
+		
+		/**
+		 * Switch to a new animation without resetting
+		 * the frame timer.
+		 * Use with care and only if both the current
+		 * and the next animation have exactly the same
+		 * number of frames.
+		 */
+		public function play2(AnimName:String):void
+		{
+			var al:uint = _animations.length;
+			for(var i:uint = 0; i < al; i++)
+			{
+				if (_animations[i].name == AnimName)
+				{
+					_curAnim = _animations[i];
+					if (_curAnim.delay <= 0)
+						finished = true;
+					else
+						finished = false;
+					_caf = _curAnim.frames[_curFrame];
+					calcFrame();
+					return;
+				}
+			}
+		}
 
 		/**
 		 * Tell the sprite to change to a random frame of animation

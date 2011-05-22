@@ -49,8 +49,8 @@ package
 			add(tm2);
 			
 			obstacles = new Array();
-			obstacles.push(new BumperObstacle (this, 300, 200));
-			obstacles.push(new BumperObstacle (this, 600, 200));
+			obstacles.push(new BumperObstacle (this, 300, 224));
+			obstacles.push(new BumperObstacle (this, 400, 216));
 			
 			obstaclesGroup = new FlxGroup();
 			for each (var o:Obstacle in obstacles) {

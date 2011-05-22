@@ -20,7 +20,7 @@ package
 			this.loadGraphic(bmpPlayer2, true, false, 24, 32);
 			this.addAnimation("run", new Array(1, 0, 1, 2), 6);
 			this.play("run");
-			sprite_rolling.loadRotatedGraphic(bmpPlayer2_roll, 32);
+			sprite_rolling.loadRotatedGraphic(bmpPlayer2_roll, 32, -1, false);
 			sprite_rolling.angle = 0;
 			this.state = STATE_RUNNING;
 		}
@@ -32,6 +32,10 @@ package
 				sprite_rolling.update();
 				sprite_rolling.x = this.x;
 				sprite_rolling.y = this.y;
+				sprite_rolling.angle += FlxG.elapsed * 360;
+				if (sprite_rolling.angle > 360) {
+					sprite_rolling.angle -= 360;
+				}
 			}
 		}
 		
@@ -41,6 +45,21 @@ package
 				super.render();
 			} else if (state == STATE_ROLLING) {
 				sprite_rolling.render();
+			}
+		}
+		
+		public function bump():void
+		{
+			this.state = STATE_ROLLING;
+			velocity.y = -100;
+			y -= 2;
+			trace("player2.bump()");
+		}
+		
+		override public function hitGround():void
+		{
+			if (sprite_rolling.angle > 350 || sprite_rolling.angle < 10) {
+				this.state = STATE_RUNNING;
 			}
 		}
 	}
