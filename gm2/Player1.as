@@ -14,7 +14,7 @@ package
 		public function Player1():void
 		{
 			super(10, 144);
-			this.loadGraphic(bmpPlayer1, true, false, 24, 32);
+			this.loadGraphic(bmpPlayer1, true, false, 24, 48);
 			this.addAnimation("run", new Array(1, 0, 1, 2), 6);
 			this.addAnimation("duckrun", new Array(4, 3, 4, 5), 6);
 			this.addAnimation("jump", new Array(4, 1, 7, 6), 6);
