@@ -22,9 +22,18 @@ package
 			acceleration.y = 100;
 		}
 		
+		override public function start():void
+		{
+		}
+		
 		override public function update():void
 		{
 			super.update();
+			if (velocity.y < 0
+					&& this.y < this.base_y - 64) {
+				velocity.y = 0;
+				this.y = this.base_y - 64;
+			}
 			var state_changed:Boolean = false;
 			if (FlxG.keys.pressed(Config.KEY_P3)) {
 				if (this.state != STATE_FLYUP) {

@@ -22,13 +22,13 @@ package
 				this.y = base_y - this.height;
 				hitGround();
 			}
-			if (velocity.y < 0
-					&& this.y < this.base_y - 64) {
-				velocity.y = 0;
-				this.y = this.base_y - 64;
-			}
 			
 			super.update();
+		}
+		
+		public function start():void
+		{
+			// override in subclasses
 		}
 		
 		public function hitGround():void
