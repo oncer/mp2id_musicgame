@@ -48,6 +48,7 @@ package {
 		
 		public function getTime():Number
 		{
+			if (track == null) return 0;
 			var r:Number = (track.position - 50) / 1000;
 			if (r < 0) return 0;
 			return r;

@@ -84,8 +84,9 @@ package
 		
 		protected function _loadLevel1():void
 		{
-			playState.player1.exists = false;
-			playState.player3.exists = false;
+			playState.player1.exists = true;
+			playState.player2.exists = true;
+			playState.player3.exists = true;
 			
 			P(2, 4, 50); P(2, 4.5, 50); P(2, 5, 50); P(2, 5.5, 50);
 			O_bumper(3.75, 0); O_bumper(4.75, 0);
@@ -137,6 +138,9 @@ package
 		
 		protected function _loadLevel2():void
 		{
+			playState.player1.exists = true;
+			playState.player2.exists = true;
+			playState.player3.exists = true;
 		}
         
         public function load(ID:int):void

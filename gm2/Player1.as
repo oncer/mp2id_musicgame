@@ -16,8 +16,11 @@ package
 		protected var state:int;
 		protected var last_state:int;
 		
+		protected var collrect:Array;
+		
 		public function Player1():void
 		{
+			height = 48;
 			super(10, 144);
 			maxVelocity.y = 100;
 			acceleration.y = 200;
@@ -29,6 +32,7 @@ package
 			this.addAnimation("grow", new Array(5, 4, 3), 6);
 			this.addAnimation("jump", new Array(7, 4), 12);
 			this.addAnimation("jumping", new Array(7, 9), 6);
+			this.addAnimationCallback(adjustHitbox);
 			
 			this.state = this.last_state = STATE_STAND;
 			this.play("stand");
@@ -46,8 +50,56 @@ package
 			this.play("stand");
 		}
 		
-		override public function update():void
+		protected function adjustHitbox(NAME:String, FRAME:int, ANIMFRAME:int):void
 		{
+			// adjust hitbox values
+			switch(ANIMFRAME)
+			{
+				case 0:
+					offset.x = 3; offset.y = 1;
+					width = 19; height = 47;
+					break;
+				case 1:
+					offset.x = 3; offset.y = 1;
+					width = 16; height = 47;
+					break;
+				case 2:
+					offset.x = 2; offset.y = 2;
+					width = 19; height = 46;
+					break;
+				case 3:
+					offset.x = 2; offset.y = 7;
+					width = 19; height = 41;
+					break;
+				case 4:
+					offset.x = 2; offset.y = 12;
+					width = 20; height = 36;
+					break;
+				case 5:
+					offset.x = 2; offset.y = 21;
+					width = 18; height = 27;
+					break;
+				case 6:
+					offset.x = 0; offset.y = 27;
+					width = 19; height = 21;
+					break;
+				case 7:
+					offset.x = 0; offset.y = 26;
+					width = 20; height = 22;
+					break;
+				case 8:
+					offset.x = 1; offset.y = 27;
+					width = 18; height = 21;
+					break;
+				case 9:
+					offset.x = 1; offset.y = 26;
+					width = 20; height = 22;
+					break;
+			}
+		}
+		
+		override public function update():void
+		{	
 			super.update();
 			if (state == STATE_JUMP && finished) {
 				this.state = STATE_JUMPING;
@@ -87,6 +139,13 @@ package
 				}
 			}
 			last_state = state;
+		}
+		
+		override public function render():void
+		{
+			this.y += this.offset.y;
+			super.render();
+			this.y -= this.offset.y;
 		}
 		
 		override public function hitGround():void

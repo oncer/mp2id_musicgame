@@ -12,6 +12,7 @@ package
 		
 		public function Player3():void
 		{
+			height = 24;
 			super(10, 64);
 			maxVelocity.y = 50;
 			this.loadGraphic(bmpPlayer3, true, false, 32, 24);
@@ -20,6 +21,9 @@ package
 			this.state = STATE_FLY;
 			this.play("fly");
 			acceleration.y = 100;
+			
+			height = 17;
+			offset.y = 2;
 		}
 		
 		override public function start():void

@@ -16,6 +16,7 @@ package
 		
 		public function Player2():void
 		{
+			height = 32;
 			super(10, 224);
 			sprite_rolling = new FlxSprite();
 			this.loadGraphic(bmpPlayer2, true, false, 24, 32);

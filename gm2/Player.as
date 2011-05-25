@@ -17,9 +17,9 @@ package
 		override public function update():void
 		{	
 			if (velocity.y > 0
-					&& this.y + this.height >= this.base_y) {
+					&& this.y + this.offset.y + this.height >= this.base_y) {
 				velocity.y = 0;
-				this.y = base_y - this.height;
+				this.y = base_y - this.height - this.offset.y;
 				hitGround();
 			}
 			
