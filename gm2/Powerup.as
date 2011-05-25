@@ -3,10 +3,14 @@ package {
 	public class Powerup extends FlxSprite
 	{
 		[Embed(source = "data/powerup.png")] public var bmpPowerup:Class;
+		[Embed(source = "data/powerup_explosion.png")] public var bmpPowerupExplosion:Class;
 		
 		protected var level:Level;
 		protected var player:Player;
 		protected var start_x:Number; // absolute X value
+		
+		protected var emitter:FlxEmitter;
+		protected var emit:Boolean;
 		
 		public function Powerup(LEVEL:Level, PID:int, X:Number, HEIGHT:int):void
 		{
@@ -20,6 +24,12 @@ package {
 			}
 			this.x = this.start_x = X * Level.SCROLL_SPEED - this.width / 2 + 22;
 			this.y = this.player.base_y - HEIGHT - this.width / 2;
+			emitter = new FlxEmitter(x, y);
+			emitter.createSprites(bmpPowerupExplosion, 20, 16, true, 0);
+			emitter.setSize(12, 12);
+			emitter.setXSpeed(-70, 70);
+			emitter.setYSpeed(-70, 70);
+			dead = false;
 		}
 		
 		protected function miss():void
@@ -31,11 +41,16 @@ package {
 		protected function hit():void
 		{
 			trace("hit");
-			exists = false;
+			emit = true;
+			emitter.start(true);
 		}
 		
 		override public function update():void
 		{
+			if (emit) {
+				emitter.update();
+				return;
+			}
 			trace(x + " " + y);
 			this.x = this.start_x - level.xpos;
 				
@@ -47,7 +62,18 @@ package {
 				miss();
 			}
 			
+			emitter.x = x;
+			emitter.y = y;
 			super.update();
+		}
+		
+		override public function render():void
+		{
+			if (emit) {
+				emitter.render();
+			} else {
+				super.render();
+			}
 		}
 	}
 }
