@@ -6,6 +6,8 @@ package
     {
 		[Embed(source = "data/readysetgo.png")] public var bmpReadySetGo:Class;
 		
+		protected var levelID:int;
+		
 		protected var level:Level;
 		public var player1:Player1;
 		public var player2:Player2;
@@ -16,8 +18,9 @@ package
 		protected var countdown:Number;
 		protected var started:Boolean;
 		
-        public function PlayState():void
+        public function PlayState(LEVELID:int):void
         {
+			levelID = LEVELID;
         }
         
         override public function create():void
@@ -34,10 +37,11 @@ package
 			players.add(player3);
 			add(players);
 			
-			level.load(1); // !!! load the level AFTER creating the players
+			level.load(levelID); // !!! load the level AFTER creating the players
 			
 			readysetgo = new FlxSprite((320 - 128) / 2, (240 - 72) / 2);
 			readysetgo.loadGraphic(bmpReadySetGo, true, false, 128, 72);
+			readysetgo.alpha = 0;
 			
 			add(readysetgo);
 			

@@ -8,7 +8,7 @@ package
     {
         public function gm2():void
         {
-            super(320,240,PlayState,2);
+            super(320,240,TitleState,2);
         }
     }
 }

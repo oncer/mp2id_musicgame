@@ -12,7 +12,9 @@ SRC = gm2.as\
 	data/bumper.png\
 	data/background.png\
 	data/readysetgo.png\
-	data/powerup.png data/powerup_explosion.png
+	data/powerup.png data/powerup_explosion.png\
+	data/level1.png data/level2.png\
+	data/titlebg.png
 MAIN = gm2.as
 SWF = gm2.swf
 

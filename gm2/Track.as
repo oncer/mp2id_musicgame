@@ -63,7 +63,7 @@ package {
 			}
 			if (s == null) return;
 			if (SILENCE) {
-				s.volume = 0.25;
+				s.volume = 0.33;
 			} else {
 				s.volume = 1;
 			}
