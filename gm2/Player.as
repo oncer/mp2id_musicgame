@@ -3,7 +3,7 @@ package
 	import org.flixel.*;
 	public class Player extends FlxSprite
 	{
-		protected var base_y:int = FlxG.height;
+		public var base_y:int = FlxG.height;
 		
 		public function Player(X:int, BASE_Y:int):void
 		{
@@ -27,6 +27,11 @@ package
 		}
 		
 		public function start():void
+		{
+			// override in subclasses
+		}
+		
+		public function stop():void
 		{
 			// override in subclasses
 		}

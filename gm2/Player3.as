@@ -26,6 +26,10 @@ package
 		{
 		}
 		
+		override public function stop():void
+		{
+		}
+		
 		override public function update():void
 		{
 			super.update();

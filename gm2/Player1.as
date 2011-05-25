@@ -40,6 +40,12 @@ package
 			this.play("run");
 		}
 		
+		override public function stop():void
+		{
+			this.state = this.last_state = STATE_STAND;
+			this.play("stand");
+		}
+		
 		override public function update():void
 		{
 			super.update();

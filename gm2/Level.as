@@ -15,17 +15,26 @@ package
         
         public var xpos:Number;
         protected var scroll:Number;
-        protected const SCROLL_SPEED:Number = 100; // pixels per second
+        public static const SCROLL_SPEED:Number = 100; // pixels per second
         
         protected var obstacles:Array;
         protected var obstaclesGroup:FlxGroup;
+        
+        protected var powerups:Array;
+        protected var powerupsGroup:FlxGroup;
+        
         public var playState:PlayState;
+        
+        protected var track:Track;
 
         public function Level(PLAYSTATE:PlayState):void
         {
             super();
             
             this.playState = PLAYSTATE;
+            
+            track = new Track();
+			add(track);
             
             background = new FlxSprite(0, 0, bmpBackground);
             add(background);
@@ -58,17 +67,28 @@ package
 			this.xpos = this.scroll = 0;
 			this.scrolling = false;
         }
+
+		protected function O_bumper(X:int, Y:int):void
+		{
+			obstacles.push(new BumperObstacle(this, X, Y));
+		}
+		
+		protected function P(PID:int, X:Number, HEIGHT:int):void
+		{
+			powerups.push(new Powerup(this, PID, X, HEIGHT));
+		}
         
         protected function _loadLevelTest():void
         {
-			obstacles.push(new BumperObstacle (this, 300, 224));
-			obstacles.push(new BumperObstacle (this, 400, 216));
 		}
 		
 		protected function _loadLevel1():void
 		{
 			playState.player1.exists = false;
 			playState.player3.exists = false;
+			
+			P(2, 4, 50); P(2, 4.5, 50); P(2, 5, 50); P(2, 5.5, 50);
+			O_bumper(3.75, 0); O_bumper(4.75, 0);
 		}
 		
 		protected function _loadLevel2():void
@@ -78,6 +98,7 @@ package
         public function load(ID:int):void
         {
 			obstacles = new Array();
+			powerups = new Array();
 			switch(ID)
 			{
 				case 0:
@@ -92,11 +113,26 @@ package
 				obstaclesGroup.add(o);
 			}
 			add(obstaclesGroup);
+			powerupsGroup = new FlxGroup();
+			for each (var p:Powerup in powerups) {
+				powerupsGroup.add(p);
+			}
+			add(powerupsGroup);
+			track.load(ID);
 		}
 		
 		public function start():void
 		{
-			this.scrolling = true;
+			track.start();
+			scrolling = true;
+		}
+		
+		public function stop():void
+		{
+			scrolling = false;
+			playState.player1.stop();
+			playState.player2.stop();
+			playState.player3.stop();
 		}
         
         protected function selectBumperObstacle():void
@@ -116,11 +152,15 @@ package
 
         override public function update():void
         {
-			if (scrolling) {
+			if (track.getTime() <= 0) {
+				stop();
+			}
+			if (scrolling && track != null) {
 				var scrollAmount:Number = FlxG.elapsed * SCROLL_SPEED;
 				
-				this.xpos += scrollAmount;
-				this.scroll += scrollAmount;
+				var oldXpos:Number = this.xpos;
+				this.xpos = track.getTime() * SCROLL_SPEED;
+				this.scroll += this.xpos - oldXpos;
 				
 				if (this.scroll > FlxG.width) {
 					this.scroll -= FlxG.width;

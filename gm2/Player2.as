@@ -20,7 +20,7 @@ package
 			sprite_rolling = new FlxSprite();
 			this.loadGraphic(bmpPlayer2, true, false, 24, 32);
 			this.addAnimation("stand", new Array(1, 1), 0);
-			this.addAnimation("run", new Array(1, 0, 1, 2), 6);
+			this.addAnimation("run", new Array(1, 0, 1, 2), 8);
 			this.play("stand");
 			sprite_rolling.loadRotatedGraphic(bmpPlayer2_roll, 32, -1, false);
 			sprite_rolling.angle = 0;
@@ -31,6 +31,12 @@ package
 		{
 			this.state = STATE_RUNNING;
 			this.play("run");
+		}
+		
+		override public function stop():void
+		{
+			this.state = STATE_STANDING;
+			this.play("stand");
 		}
 		
 		override public function update():void

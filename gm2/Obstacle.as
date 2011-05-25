@@ -9,7 +9,7 @@ package {
 		public function Obstacle(LEVEL:Level, X:Number, Y:Number)
 		{
 			this.level = LEVEL;
-			this.x = this.start_x = X;
+			this.x = this.start_x = X * Level.SCROLL_SPEED;
 			this.y = Y;
 		}
 		
@@ -25,7 +25,7 @@ package {
 			var y_dist:int = this.y - (player.y + player.height);
 			var x_dist1:int = player.x + player.width - this.x;
 			var x_dist2:int = this.x + this.width - player.x;
-			trace("y_dist: " + y_dist + ", x_dist1: " + x_dist1 + ", x_dist2 " + x_dist2);
+			//trace("y_dist: " + y_dist + ", x_dist1: " + x_dist1 + ", x_dist2 " + x_dist2);
 			if (y_dist > -3 && y_dist < 3
 					&& x_dist1 > 0
 					&& x_dist2 > 0) {

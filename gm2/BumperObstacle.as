@@ -12,14 +12,17 @@ package {
 		
 		public var state:int = STATE_LOADED;
 		
-		public function BumperObstacle(LEVEL:Level, X:Number, Y:Number):void
+		protected var player:Player;
+		
+		public function BumperObstacle(LEVEL:Level, X:Number, HEIGHT:Number):void
 		{
-			super(LEVEL, X, Y);
+			this.player = LEVEL.playState.player2;			
+			super(LEVEL, X + 22 - 12, player.base_y - HEIGHT);
 			this.loadGraphic(bmpBumperObstacle, true, false, 24, 12);
-			this.addAnimation("loaded", new Array(0), 1);
+			this.addAnimation("loaded", new Array(0, 0), 0);
 			this.addAnimation("selected", new Array(0, 1), 8);
 			this.addAnimation("fired", new Array(2, 1, 2, 1), 20);
-			this.addAnimation("empty", new Array(3, 3), 1);
+			this.addAnimation("empty", new Array(3, 3), 0);
 		}
 		
 		public function select():void
@@ -35,7 +38,7 @@ package {
 			if (this.state == STATE_SELECTED) {
 				this.play("fired");
 				this.state = STATE_FIRED;
-				var player2:Player2 = this.level.playState.player2;
+				var player2:Player2 = player as Player2;
 				if (playerOverlap(player2)) {
 					player2.bump();
 				}
