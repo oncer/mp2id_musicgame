@@ -17,7 +17,8 @@ package {
 		public function BumperObstacle(LEVEL:Level, X:Number, HEIGHT:Number):void
 		{
 			this.player = LEVEL.playState.player2;			
-			super(LEVEL, X + 22 - 12, player.base_y - HEIGHT);
+			super(LEVEL, X, player.base_y - HEIGHT);
+			x = start_x = start_x + 22 - 12; // 22 = player mid pos; 12 = half width
 			this.loadGraphic(bmpBumperObstacle, true, false, 24, 12);
 			this.addAnimation("loaded", new Array(0, 0), 0);
 			this.addAnimation("selected", new Array(0, 1), 8);

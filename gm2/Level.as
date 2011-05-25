@@ -68,9 +68,9 @@ package
 			this.scrolling = false;
         }
 
-		protected function O_bumper(X:int, Y:int):void
+		protected function O_bumper(X:Number, HEIGHT:int):void
 		{
-			obstacles.push(new BumperObstacle(this, X, Y));
+			obstacles.push(new BumperObstacle(this, X, HEIGHT));
 		}
 		
 		protected function P(PID:int, X:Number, HEIGHT:int):void
@@ -124,7 +124,6 @@ package
 		public function start():void
 		{
 			track.start();
-			scrolling = true;
 		}
 		
 		public function stop():void
@@ -152,7 +151,14 @@ package
 
         override public function update():void
         {
-			if (track.getTime() <= 0) {
+			if (track.getTime() > 0) {
+				if (!scrolling) {
+					scrolling = true;
+					if (playState.player1.exists) playState.player1.start();
+					if (playState.player2.exists) playState.player2.start();
+					if (playState.player3.exists) playState.player3.start();
+				}
+			} else {
 				stop();
 			}
 			if (scrolling && track != null) {

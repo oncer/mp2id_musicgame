@@ -48,9 +48,6 @@ package
         public function start():void
         {
 			level.start();
-			if (player1.exists) player1.start();
-			if (player2.exists) player2.start();
-			if (player3.exists) player3.start();
 			started = true;
 		}
 		
