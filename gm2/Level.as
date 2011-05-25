@@ -25,7 +25,7 @@ package
         
         public var playState:PlayState;
         
-        protected var track:Track;
+        public var track:Track;
 
         public function Level(PLAYSTATE:PlayState):void
         {

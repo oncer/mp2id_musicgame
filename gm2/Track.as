@@ -10,8 +10,8 @@ package {
 		protected var track_accord:FlxSound;
 		protected var track_bird:FlxSound;
 		
-		public static const FATMAN:int = 1;
-		public static const ACCORD:int = 2;
+		public static const FATMAN:int = 2;
+		public static const ACCORD:int = 1;
 		public static const BIRD:int = 3;
 		
 		public function Track():void
@@ -63,7 +63,7 @@ package {
 			}
 			if (s == null) return;
 			if (SILENCE) {
-				s.volume = 0;
+				s.volume = 0.25;
 			} else {
 				s.volume = 1;
 			}

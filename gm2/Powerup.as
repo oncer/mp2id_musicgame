@@ -7,6 +7,7 @@ package {
 		
 		protected var level:Level;
 		protected var player:Player;
+		protected var playerID:int;
 		protected var start_x:Number; // absolute X value
 		
 		protected var emitter:FlxEmitter;
@@ -16,6 +17,7 @@ package {
 		{
 			this.loadGraphic(bmpPowerup, true, false, 12, 12);
 			this.level = LEVEL;
+			this.playerID = PID;
 			switch (PID)
 			{
 				case 1: this.player = level.playState.player1; break;
@@ -34,13 +36,13 @@ package {
 		
 		protected function miss():void
 		{
-			trace("miss");
+			level.track.silencePlayer(playerID, true);
 			exists = false;
 		}
 		
 		protected function hit():void
 		{
-			trace("hit");
+			level.track.silencePlayer(playerID, false);
 			emit = true;
 			emitter.start(true);
 		}
@@ -58,7 +60,7 @@ package {
 				hit();
 			}
 			
-			if (this.x < -this.width) {
+			if (this.x < player.x - this.width) {
 				miss();
 			}
 			
