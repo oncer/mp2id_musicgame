@@ -56,7 +56,10 @@ package {
 			trace(x + " " + y);
 			this.x = this.start_x - level.xpos;
 				
-			if (overlaps(this.player)) {
+			if (player.x + player.offset.x + player.width > this.x &&
+				player.x + player.offset.x < this.x + this.width &&
+				player.y + player.offset.y + player.height > this.y &&
+				player.y + player.offset.y < this.y + this.height) {
 				hit();
 			}
 			

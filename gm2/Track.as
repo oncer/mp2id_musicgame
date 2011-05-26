@@ -5,6 +5,11 @@ package {
 		[Embed(source = "data/tracks/easygoing.mp3")] public var sndEasygoing:Class;
 		[Embed(source = "data/tracks/easygoing_fatman.mp3")] public var sndEasygoing_fatman:Class;
 		
+		[Embed(source = "data/tracks/jazzup.mp3")] public var sndJazzup:Class;
+		[Embed(source = "data/tracks/jazzup_fatman.mp3")] public var sndJazzup_fatman:Class;
+		[Embed(source = "data/tracks/jazzup_accord.mp3")] public var sndJazzup_accord:Class;
+		[Embed(source = "data/tracks/jazzup_bird.mp3")] public var sndJazzup_bird:Class;
+		
 		protected var track:FlxSound;
 		protected var track_fatman:FlxSound;
 		protected var track_accord:FlxSound;
@@ -34,6 +39,14 @@ package {
 					add(track_fatman);
 					break;
 				case 2:
+					track = new FlxSound().loadEmbedded(sndJazzup);
+					track_fatman = new FlxSound().loadEmbedded(sndJazzup_fatman);
+					track_accord = new FlxSound().loadEmbedded(sndJazzup_accord);
+					track_bird = new FlxSound().loadEmbedded(sndJazzup_bird);
+					add(track);
+					add(track_fatman);
+					add(track_accord);
+					add(track_bird);
 					break;
 			}
 		}

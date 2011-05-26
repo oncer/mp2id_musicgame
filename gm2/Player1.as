@@ -16,23 +16,20 @@ package
 		protected var state:int;
 		protected var last_state:int;
 		
-		protected var collrect:Array;
-		
 		public function Player1():void
 		{
 			height = 48;
 			super(10, 144);
-			maxVelocity.y = 100;
+			maxVelocity.y = 130;
 			acceleration.y = 200;
 			this.loadGraphic(bmpPlayer1, true, false, 24, 48);
 			this.addAnimation("stand", new Array(1, 1), 0);
-			this.addAnimation("run", new Array(1, 0, 1, 2), 6);
-			this.addAnimation("shrink", new Array(3, 4, 5), 6);
-			this.addAnimation("duckrun", new Array(7, 6, 7, 8), 6);
-			this.addAnimation("grow", new Array(5, 4, 3), 6);
+			this.addAnimation("run", new Array(1, 0, 1, 2), 8);
+			this.addAnimation("shrink", new Array(3, 4, 5), 12);
+			this.addAnimation("duckrun", new Array(7, 6, 7, 8), 8);
+			this.addAnimation("grow", new Array(5, 4, 3), 12);
 			this.addAnimation("jump", new Array(7, 4), 12);
 			this.addAnimation("jumping", new Array(7, 9), 6);
-			this.addAnimationCallback(adjustHitbox);
 			
 			this.state = this.last_state = STATE_STAND;
 			this.play("stand");
@@ -42,15 +39,17 @@ package
 		{
 			this.state = this.last_state = STATE_RUN;
 			this.play("run");
+			adjustHitbox(frame);
 		}
 		
 		override public function stop():void
 		{
 			this.state = this.last_state = STATE_STAND;
 			this.play("stand");
+			adjustHitbox(frame);
 		}
 		
-		protected function adjustHitbox(NAME:String, FRAME:int, ANIMFRAME:int):void
+		protected function adjustHitbox(ANIMFRAME:int):void
 		{
 			// adjust hitbox values
 			switch(ANIMFRAME)
@@ -96,6 +95,7 @@ package
 					width = 20; height = 22;
 					break;
 			}
+			calcFrame();
 		}
 		
 		override public function update():void
@@ -129,7 +129,7 @@ package
 						play("jump"); break;
 					case STATE_JUMPING:
 						play("jumping"); 
-						velocity.y = -100;
+						velocity.y = -130;
 						y -= 10;
 						break;
 					case STATE_GROW:
@@ -138,6 +138,7 @@ package
 						play("shrink"); break;
 				}
 			}
+			adjustHitbox(frame);
 			last_state = state;
 		}
 		
@@ -156,6 +157,7 @@ package
 				} else {
 					state = last_state = STATE_GROW;
 					play("grow");
+					adjustHitbox(frame);
 				}
 			}
 		}

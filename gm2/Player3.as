@@ -17,7 +17,7 @@ package
 			maxVelocity.y = 50;
 			this.loadGraphic(bmpPlayer3, true, false, 32, 24);
 			this.addAnimation("fly", new Array(0, 1), 6);
-			this.addAnimation("flyup", new Array(0, 1), 10);
+			this.addAnimation("flyup", new Array(0, 1), 8);
 			this.state = STATE_FLY;
 			this.play("fly");
 			acceleration.y = 100;
