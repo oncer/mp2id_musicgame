@@ -47,6 +47,7 @@ package
 			
 			countdown = 3.5;
 			super.create();
+                        FlxG.mouse.hide();
         }
         
         public function start():void

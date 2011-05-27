@@ -15,6 +15,8 @@ package
 			var title:FlxSprite = new FlxSprite(0, 0, bmpStartscreen);
 			
 			add(title); 
+
+                        FlxG.mouse.show();
 		}
 		
 		override public function update():void
