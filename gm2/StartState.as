@@ -6,7 +6,7 @@ package
 	{
 		[Embed(source = "data/startscreen.png")] public var bmpStartscreen:Class;
 		
-		public function TitleState():void
+		public function StartState():void
 		{			
 		}
 		
